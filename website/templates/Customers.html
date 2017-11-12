@@ -1,0 +1,64 @@
+{% extends "first.html" %}
+{% block title %}
+Customers
+{% endblock %}
+{% block style %}
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    height:auto;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.container {
+    padding: 2px 16px;
+}
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}
+{% block content %}
+{% for i in customer %}
+<div  style="margin: 0px 0px 10px 0px">
+<a href="{{i.id}}" style="text-decoration: none;">
+<div class="card" style="margin: 05px 05px 5px 05px">
+  <div class="container">
+    <h4><b>Name:</b>{{i.FName}} {{i.LName}}</h4> 
+    <p>Address:{{i.address}}</p>
+    <p>Phone:{{i.phone}}</p>
+    <p>Balance:{{i.balance}}</p>
+  </div>
+</div>
+</a></div>
+{% endfor %}
+<a href="/register/" style="text-decoration: none; ">
+<div class="card" style="margin: 05px 05px 5px 05px">  
+  <div class="container">
+    <div  style="text-align: center; ">
+    <h1>+</h1>
+    </div>
+
+  </div>
+ 
+</div>
+</a>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

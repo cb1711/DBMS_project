@@ -1,0 +1,114 @@
+{% extends "first.html" %}
+{% block title %}
+Book
+{% endblock %}
+{% block style %}
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    height:200px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.container {
+    padding: 2px 16px;
+}
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+</style>
+{% endblock %}
+{% block content %}
+<center>
+  
+  <h3>Order Details</h3><br>
+  <form action="/confirm/" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="userId" value="{{ user.id }}">
+  Customer:{{user.FName}} {{user.LName}}<br>
+  Phone:{% for i in phone %}
+    {{ i }}
+    {% endfor %}
+    <br>
+  Address:{{user.address}}<br>
+  <table>
+    <tr>
+      <th>Sr</th>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+    </tr>
+    {% for i,j,k in items %}
+    <input type="hidden" name="products" value="{{i.pid}}">
+	<input type="hidden" name="quantity" value="{{j}}">
+	<input type="hidden" name="rates" value="{{i.price}}">
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{i.brand}} {{i.type}}</td>
+      <td>{{j}}</td>
+      <td>{{k}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td><b>Total</b></td>
+      <td></td>
+      <td>{{amount}}</td><input type="hidden" name="amount" id="amount" value="{{amount}}">
+    </tr>
+	{% if request.user.is_superuser %}
+	<tr>
+      <td></td>
+      <td><b>Discount</b></td>
+      <td></td>
+      <td><input type="number" name="discount" id="discount" value=0 ></td>
+    </tr>
+	<tr>
+      <td></td>
+      <td><b>Paid</b></td>
+      <td></td>
+      <td><input type="number" name="paid" id="paid" value=0></td>
+    </tr>
+	{% endif %}
+  </table>
+  <br>
+{% if not request.user.is_superuser %}
+  	 <input type="radio" name="transactions" value="off"> Offline
+	 <input type="radio" name="transactions" value="on"> Online<br>
+{% endif %}
+  <input type="submit" value="Confirm and Pay">
+
+</center>
+{% endblock %}
+{% block script %}
+
+<script>
+var myFunction = function(val) {
+    var x = document.getElementById("discount").value;
+    document.getElementById("total").innerHTML = val;
+}
+</script>
+{% endblock %}

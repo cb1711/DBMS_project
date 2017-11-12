@@ -1,0 +1,74 @@
+{% extends "first.html" %}
+{% block title %}
+Purchase Orders
+{% endblock %}
+{% block style %}
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    height:auto;
+	
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+.button2 {
+    background-color: #008CB1; 
+    color: black; 
+    border: 2px solid #008CBA;
+	border-radius: 10px;
+	margin: 0px 0px 10px 0px;
+}
+
+.button2:hover {
+    background-color: #008CBA;
+    color: white;
+}
+.container {
+    padding: 2px 16px;
+}
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}
+{% block content %}
+<form action="/order/" method="post">
+ {% csrf_token %}
+	<div  style="margin: 0px 0px 10px 0px">
+   {% for i in products %} 
+    <div class="card" style="margin: 05px 05px 5px 05px">
+    <div class="container">
+      <h4><b>Product:</b>{{i.type}}</h4>
+      <p>Brand:{{i.brand}}</p>
+      <p>Cost/Unit:{{i.price}}</p>
+      <p>Stock:{{i.stock}}</p>
+      <center><input type="checkbox" name="items" id="{{i.pid}}" value="{{i.pid}}">Add</center>
+      </div>
+    </div>
+    {% endfor %}
+    
+    </div>  
+    <br>
+    <br>
+	<center>
+   <bottom>
+     <input type="submit" class="button2" value="Complete Details">
+   </bottom>
+</center>
+</form>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

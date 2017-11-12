@@ -1,0 +1,40 @@
+{% extends "first.html" %}
+{% block title %}
+Add brand
+{% endblock %}
+{% block style %}
+<style>
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button { 
+  	-webkit-appearance: none; 
+  	margin: 0; 
+}
+</style>
+{% endblock %}
+{% block content %}
+
+<br>
+<form action="/addbrand/" method="POST">
+{% csrf_token %}
+<div style="display:flex;justify-content:center;align-items:center">
+<table>
+<tr>
+<th>Name</th>
+<td><input type="text" name="name" required></td>
+</tr>
+<tr>
+<th>Phone</th>
+<td><input type="number" name="phone" min="7000000000" max="9999999999" required></td>
+</tr>
+<tr>
+<th>Address</th>
+<td><input type="text" name="address" required></td>
+</tr>
+</table>
+<input type="submit" value="Add">
+</div>
+</form>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

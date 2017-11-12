@@ -1,0 +1,62 @@
+{% extends "first.html" %}
+{% block title %}
+Stats
+{% endblock %}
+{% block style %}
+<style>
+table, th, td {
+    border: 1px solid black;
+  padding: 5px;
+  margin:5px 5px 5px 5px;
+
+}
+</style>
+{% endblock %}
+{% block content %}
+<form action="/stats/" method="POST">
+{% csrf_token %}
+
+<center>
+  <p> Starting Date: <input type="date" name="start" required></p><br>
+  <p> Ending Date: <input type="date" name="end" required></p><br>
+  <input type="submit" value="Get Stats">
+</center>
+</form>
+{% if stats|length > 0 %}
+<center>
+  <table >
+  <tr><th>Product</th>
+  <th>Units Sold</th>
+  <th>Sales worth</th>
+  <th>Purchase worth</th>
+  <th>Profit</th>
+  <th>Tax to be paid</th>
+  </tr>
+  {% for i in stats %}
+    <tr>
+    <td>{{ i.brand }} {{ i.type }}</td>
+    <td>{{ i.quantity }}</td>
+    <td>{{ i.sale }}</td>
+    <td>{{ i.purchase }}</td>
+    <td>{{ i.profit }}</td>
+    <td>{{ i.tax }}</td>
+
+    </tr>
+
+  {% endfor %}
+  <tr style="background-color: yellow;">
+  <td>Net</td>
+  {% for j in net %}
+  <td>{{ j }}</td>
+  {% endfor %}
+  </tr>
+  </table>
+  </center>
+{% else %}
+<center>
+  <p>No sales records for the given period </p>
+</center>
+{% endif %}
+{% endblock %}
+{% block script %}
+{% endblock %}

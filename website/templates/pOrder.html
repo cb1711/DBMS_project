@@ -1,0 +1,90 @@
+{% extends "first.html" %}
+{% block title %}
+Purchase Order
+{% endblock %}
+{% block style %}
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    height:200px;
+	display: -webkit-flex;
+  	display: -ms-flexbox;
+  	display: flex;
+	-webkit-flex-wrap: wrap;
+ 	 -ms-flex-wrap: wrap;
+  	flex-wrap: wrap;
+	overflow: scroll;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.container {
+    padding: 2px 16px;
+}
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+</style>
+{% endblock %}
+{% block content %}
+<center>
+  <br>
+  <br>
+<form action="/purchasedetails/" method="post">
+  {% csrf_token %}
+  Ordered From:<select name="supplier">
+    {% for i in ulist %}
+    <option value="{{ i.id }}">{{ i.name }} {{i.address}}</option>
+
+    {% endfor %}
+  </select>
+  <br>
+  Scheduled Date:<input type="date" name="Date" required>
+  <br><br>
+  <table>
+    <tr>
+      <th> Product</th>
+      <th> Cost/Unit</th>
+      <th> Quantity </th>
+    </tr>
+    {% for i in item %}
+    <tr>
+        <td> {{ i }}</td><input type="hidden" value={{i.pid}} name="products">
+      <td><input type="number" name="rates" required></td>
+      <td><input type="number" name="quantity" value=1></td>
+    </tr>
+
+  {% endfor %}
+  <tr><td></td><td>Transport Cost/Quintal</td><td><input type="number" name="transport" required></td>
+  <tr><td></td><td>Loading Cost/Quintal</td><td><input type="number" name="loading" required></td>
+  <tr><td></td><td>Paid</td><td><input type="number" name="paid" required></td>
+  </table>
+  <input type="submit" value="Order">
+</form>
+</center>
+{% endblock %}
+{% block script %}
+{% endblock %}
