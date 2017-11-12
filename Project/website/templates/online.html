@@ -1,0 +1,53 @@
+{% extends "first.html" %}
+
+{% block head %}
+<script src= "https://www.payumoney.com/Api/REST/op/buttonScript" async="true" > </script>
+<script>
+function paymee(){
+	//alert(document.getElementById("amnt").value);
+window.PUM.setData(parseFloat(document.getElementById("amnt").value), "{{ orderId }}","product");
+window.PUM.pay()	
+
+};
+
+</script>
+{% endblock %}
+{% block title %}
+Online Pay
+{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block content %}
+<center>
+<table>
+<tr>
+<td> Name</td>
+<td>{{ name }}</td>
+</tr>
+<tr>
+<td>Amount</td>
+<td><input type="number" name="amnt" max="{{amount}}" min="1" id="amnt">
+</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>{{time}}</td>
+</tr>
+
+</table>
+
+<span class='pm-button' id='4B9F8E35D43D8B24CEA178F1EF3F12C0' onclick="paymee()">
+  <span class="state active">
+    <input type="image" src="https://file.payumoney.com/images/payby_payumoney/new_buttons/21.png" width="131" height="37">
+  </span>
+  <span class="state clicked" style="display:none" >
+    <input type="image" src="https://file.payumoney.com/images/payby_payumoney/new_buttons/submitted/21.png" width="131" height="37">
+  </span>
+</span>
+</center>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

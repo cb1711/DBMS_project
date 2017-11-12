@@ -1,0 +1,47 @@
+{% extends "first.html" %}
+{% block title %}
+Clear
+{% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+
+<br>
+<form action="/repay/" method="POST">
+{% csrf_token %}
+<input type="hidden" name="flag" value="{{flag}}">
+<input type="hidden" name="id" value="{{id}}">
+<div style="display:flex;justify-content:center;align-items:center">
+<table>
+<tr>
+<th>Name</th>
+<td>{{user.name}}</td>
+</tr>
+<tr>
+<th>Address</th>
+<td>{{user.address}}</td>
+</tr>
+<tr>
+<th>Phone</th>
+<td>{{user.phone}}</td>
+</tr>
+<tr>
+<th>Balance</th>
+<td>{{user.balance}}</td>
+</tr>
+<tr>
+<th>Paid</th>
+<td><input type="number" name="amount" min=1 max={{user.balance}} required></td>
+</tr>
+</table>
+{% if request.user.is_superuser %}
+<input type="submit" value="settle">
+{% else %}
+
+{% endif %}
+</div>
+</form>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

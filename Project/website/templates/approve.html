@@ -1,0 +1,122 @@
+{% extends "first.html" %}
+{% block title %}
+Approve
+{% endblock %}
+{% block style %}
+<style>
+table.colored {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 10px;
+
+}
+
+table.colored th{
+    text-align: left;
+    padding: 4px;
+  background-color:#40E0D0;
+  color:white;
+}
+
+table.colored td {
+    text-align: left;
+    border: 1px solid #AF0FCF;
+    padding: 4px;
+}
+table.colored tr:nth-child(even){background-color: #f2f2f2}
+table.colored2 {
+    border-collapse: collapse;
+    width: 100%;
+
+
+}
+
+table.colored2 th{
+    text-align: left;
+    padding: 2px;
+  background-color:#40E0D0;
+  color:white;
+}
+
+table.colored2 td {
+    text-align: left;
+    padding: 2px;
+    border:none;
+}
+table.colored2 tr:nth-child(even){background-color: #807F80}
+
+.button2 {
+    background-color: #008CB1; 
+    color: black; 
+    border: 2px solid #008CBA;
+  border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+}
+
+.button2:hover {
+    background-color: #008CBA;
+    color: white;
+}
+.alert {
+	color:red;
+	text-align:center;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="alert">{{ message }}</div>
+{% if pending|length > 0 %}
+
+<form action="/approve/" method="post">
+ {% csrf_token %}
+<div  style="margin: 0px 0px 10px 0px">
+<center>
+  
+  <table class="colored">
+  <tr><th>Customer</th>
+  <th>Sum</th>
+  <th>Date & Time</th>
+  <th>Products</th>
+  <th>Approve</th>
+  </tr>
+   {% for i in pending %}
+   <tr>
+    <td>{{i.customer}} {{i.address}} </td>
+
+    <td>
+    {{i.sum}}
+    </td>
+
+    <td>
+    {{i.date}} {{i.time}}
+    </td>
+
+    <td>
+    <table class="colored2">
+    
+    {% for j in i.products %}
+      <tr><td>{{j}}</td></tr>
+    {% endfor %}
+    </table>
+    </td>
+    <td>
+    <input type="checkbox" name="approvals" id="{{i.oid}}" value="{{i.oid}}">
+   {% endfor %}
+   </table>
+	   <bottom>
+     <input type="submit" class="button2" value="Approve Selected">
+   </bottom>
+</center>
+</div>
+</form>
+
+{% else %}
+	<center><p>No records to approve right now</p></center>
+{% endif %}
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

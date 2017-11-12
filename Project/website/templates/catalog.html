@@ -1,0 +1,65 @@
+{% extends "first.html" %}
+{% block title %}
+Catalog
+{% endblock %}
+{% block style %}
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    float: left;
+    height:auto;
+	}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.container {
+    padding: 2px 16px;
+}
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}
+{% block content %}
+{% for i in products %} 
+	<a href="{{i.pid}}" style="text-decoration: none;">    
+	<div class="card" style="margin: 05px 05px 5px 05px">
+    <div class="container">
+      <h4><b>Product:</b>{{i.type}}</h4>
+      <p>Brand:{{i.brand}}</p>
+      <p>Cost/Unit:{{i.price}}</p>
+      <p>Stock:{{i.stock}}</p>
+      </div>
+    </div>
+	</a>
+    {% endfor %}
+
+{% if request.user.is_superuser %}
+<a href="add/" style="text-decoration: none; ">
+<div class="card" style="margin: 05px 05px 5px 05px">  
+  <div class="container">
+    <div  style="text-align: center; ">
+    <h1>+</h1>
+    </div>
+
+  </div>
+ 
+</div>
+</a>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

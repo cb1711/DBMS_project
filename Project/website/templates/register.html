@@ -1,0 +1,67 @@
+{% extends "first.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block style %}
+<style>
+	.ex1 {
+    width: 40%;
+    margin: auto;
+}
+	.alert {
+	color:red;
+	text-align:center;
+}
+</style>
+{% endblock %}
+{% block content %}
+<br><br><br><br><br>
+<form id="signup_form" action="/register/" method="POST">
+{% csrf_token %}
+<div class="alert">
+{{message}}
+</div>
+<div class="ex1">
+<center>
+	<h4>Please provide the necessary details</h4>
+	<br>
+	<label>EmailID:</label><br>
+	<input type="text" name="email" placeholder="Enter Email" required>
+	<br><br>
+	<label>Password:</label><br>
+	<input type="password" name="password" placeholder="Enter password" required>
+	<br><br>
+	<label>First Name:</label><br>
+	<input type="text" name="fname" placeholder="Enter First Name"required>
+	<br><br>
+	<label>Last Name:</label><br>
+	<input type="text" name="lname" placeholder="Enter Last Name">
+	<br>
+	<br>
+	<label>username:</label><br>
+	<input type="text" name="uname" placeholder="Enter username" required>
+	<br><br>
+	<label>address:</label><br>
+	<input type="text" name="address" placeholder="Enter address" required>
+	<br><br>
+	
+	<label>Phone1:</label><br>
+	<input type="text" name="phone1" placeholder="Enter Phone" required>
+	<br><br>
+	
+	<label>Phone 2:</label><br>
+	<input type="text" name="phone2" placeholder="Enter Phone">
+	<br><br>
+	<label>Phone 3:</label><br>
+	<input type="text" name="phone3" placeholder="Enter Phone">
+	<br><br>
+
+	<input type="submit" value="Sign-up">
+	<br><br>	
+
+</center>
+</div>
+</form>
+	
+<br><br><br>
+{% endblock %}

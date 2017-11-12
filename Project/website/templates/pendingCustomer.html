@@ -1,0 +1,107 @@
+{% extends "first.html" %}
+{% block title %}
+History
+{% endblock %}
+{% block style %}
+<style>
+table.details, th , td{
+    border: 1px solid black;
+	padding: 5px;
+}
+table.details th , td{
+    border: 1px solid black;
+	padding: 10px;
+}
+table.colored {
+    border-collapse: collapse;
+    width: 80%;
+
+}
+
+table.colored th{
+    text-align: left;
+    padding: 8px;
+	background-color:#40E0D0;
+	color:white;
+}
+
+table.colored td {
+    text-align: left;
+    padding: 8px;
+}
+
+table.colored tr:nth-child(even){background-color: #f2f2f2}
+</style>
+{% endblock %}
+{% block content %}
+<br>
+<div style="display:flex;justify-content:center;align-items:center">
+
+<table class="details">
+<tr>
+	<th>Name</th><td>{{customer.FName}} {{customer.LName}}</td>
+</tr>
+<tr>
+	<th>Address</th><td>{{customer.address}}</td>
+</tr>
+<tr>
+	<th>Balance</th><td>{{balance}}</td>
+</tr>
+<tr>
+	<th>Email</th><td>{{customer.email}}</td>
+</tr>
+	<th>Phone</th>	
+	<td>	
+	{% for i in phone %}
+		{{i}}     
+	{% endfor %}
+	</td>
+</tr>      
+</tr>
+
+</table>
+
+<br>
+</div>
+<div>
+
+<center><h4>Your Transaction details</h4>
+
+{% if transactions|length is  0 %}
+No transaction details to show here
+
+{% else %}
+
+<table class="colored">
+<tr>
+<th>Order ID</th>
+<th>Date</th>
+<th>Time</th>
+<th>Product</th>
+<th>Quantity</th>
+<th>Sum</th>
+<th>Paid</th>
+<th>Discount</th>
+</tr>
+{% for i in transactions %}
+<tr>
+<td>{{i.OrderID}}</td>
+<td>{{i.Date}}</td>
+<td>{{i.Time}}</td>
+<td>{{i.Brand}} {{i.Type}}</td>
+<td>{{i.Quantity}}</td>
+<td>{{i.Sum}}</td>
+<td>{{i.Paid}}</td>
+<td>{{i.Discount}}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endif %}
+</center>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

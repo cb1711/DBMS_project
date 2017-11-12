@@ -1,0 +1,43 @@
+{% extends "first.html" %}
+{% block title %}
+Login
+{% endblock %}
+{% block style %}
+<style>
+	.ex1 {
+    width: 40%;
+    margin: auto;
+}
+	.alert {
+	color:red;
+	text-align:center;
+}
+</style>
+{% endblock %}
+{% block content %}
+<br><br><br><br><br>
+<form id="login_form" action="/login/" method="POST">
+{% csrf_token %}
+
+<div class="alert">{{message}}</div>
+<div class="ex1">
+<center>
+	<h4>Please Login with your registered email ID</h4>
+	<br>
+	<label>EmailID:</label><br>
+	<input type="text" name="username" placeholder="Enter Username" required>
+	<br><br>
+	<label>Password:</label><br>
+	<input type="password" name="password" placeholder="Enter password" required>
+	<br><br>
+	<input type="submit" value="Login">
+
+	<br>
+	
+<a href="/register/">New User</a>
+</center>
+</div>
+</form>
+	
+<br><br><br>
+{% endblock %}
